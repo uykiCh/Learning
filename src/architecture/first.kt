@@ -64,7 +64,7 @@ class MessageListPresenter {
     fun setFragment(tabletPresenter:TabletPresenter){
 
         fragment = FragmentMessages()
-        fragment.setTablePresenter(tabletPresenter)
+        fragment.setTabletPresenter(tabletPresenter)
 
     }
 
@@ -72,9 +72,9 @@ class MessageListPresenter {
 
 }
 
-class FragmentMessages: InteractionsTabletPresenter {
+class FragmentMessages {
 
-    override fun setTablePresenter(tabletPresenter:TabletPresenter) {
+    fun setTabletPresenter(tabletPresenter:TabletPresenter) {
         this.tabletPresenter = tabletPresenter
     }
 
@@ -91,5 +91,5 @@ interface InteractionsMainActivity{
 
 }
 interface InteractionsTabletPresenter{
-    fun setTablePresenter(tabletPresenter:TabletPresenter)
+    fun setTabletPresenter(tabletPresenter:TabletPresenter)
 }
