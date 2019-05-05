@@ -31,7 +31,7 @@ class MVPTabletController(private val interactionsMainActivity: InteractionsMain
 
 class TabletPresenter(private val tableController: MVPTabletController) {
 
-    val messageListPresenter = MessageListPresenter()
+    private val messageListPresenter = MessageListPresenter()
 
     fun setMessage(str:String){
 
@@ -41,19 +41,19 @@ class TabletPresenter(private val tableController: MVPTabletController) {
 
     fun completeSetMessage(){
 
-        print("complete")
+        println("complete")
 
     }
 
     fun setTablePresenter() {
 
-        messageListPresenter.fragment.setTablePresenter(this)
+        messageListPresenter.setFragment(this)
 
     }
 
 }
 
-class MessageListPresenter() {
+class MessageListPresenter {
 
     fun setMessage(str:String){
 
@@ -61,11 +61,18 @@ class MessageListPresenter() {
 
     }
 
-    val fragment = FragmentMessages()
+    fun setFragment(tabletPresenter:TabletPresenter){
+
+        fragment = FragmentMessages()
+        fragment.setTablePresenter(tabletPresenter)
+
+    }
+
+    private lateinit var fragment:FragmentMessages
 
 }
 
-class FragmentMessages: InteractionsMessageListPresenter, InteractionsTabletPresenter {
+class FragmentMessages: InteractionsTabletPresenter {
 
     override fun setTablePresenter(tabletPresenter:TabletPresenter) {
         this.tabletPresenter = tabletPresenter
@@ -74,18 +81,13 @@ class FragmentMessages: InteractionsMessageListPresenter, InteractionsTabletPres
     private lateinit var tabletPresenter:TabletPresenter
 
     fun setMessage(str: String){
-        print(str)
+        println(str)
         tabletPresenter.completeSetMessage()
     }
 
 }
 
 interface InteractionsMainActivity{
-
-}
-interface InteractionsMessageListPresenter {
-
-
 
 }
 interface InteractionsTabletPresenter{
